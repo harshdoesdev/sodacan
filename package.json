@@ -1,6 +1,6 @@
 {
   "name": "sodacan",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Hypercasual Game Framework Inspired By Flame Game Engine",
   "main": "dist/index.js",
   "scripts": {

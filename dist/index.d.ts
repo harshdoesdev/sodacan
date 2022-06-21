@@ -1,17 +1,4 @@
-interface IGameKeyHandler {
-    (key: string): void;
-}
-interface IGame {
-    init(): void;
-    update(dt: number): void;
-    draw(ctx: CanvasRenderingContext2D): void;
-    keyUp?: IGameKeyHandler;
-    keyDown?: IGameKeyHandler;
-}
-interface IGameConfig {
-    el: string | HTMLElement;
-    pixelize: boolean;
-    background?: string;
-}
-export declare function runGame(game: IGame, config?: IGameConfig): void;
-export {};
+import runGame from "./runGame";
+import Sprite from "./sprite";
+import Vec2 from "./Vec2";
+export { runGame, Sprite, Vec2 };

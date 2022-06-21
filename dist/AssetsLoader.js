@@ -83,12 +83,15 @@ export default class AssetLoader {
     }
     addImage(name, src) {
         this.enqueueAsset(name, src, ASSET_TYPE.IMAGE);
+        return this;
     }
     addSound(name, src) {
         this.enqueueAsset(name, src, ASSET_TYPE.SOUND);
+        return this;
     }
     addJSON(name, src) {
         this.enqueueAsset(name, src, ASSET_TYPE.JSON);
+        return this;
     }
     load() {
         return __awaiter(this, void 0, void 0, function* () {

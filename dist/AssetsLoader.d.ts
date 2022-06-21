@@ -17,9 +17,9 @@ export default class AssetLoader {
     loading: boolean;
     queue: QueuedAsset[];
     enqueueAsset(name: string, src: string, type: ASSET_TYPE): void;
-    addImage(name: string, src: string): void;
-    addSound(name: string, src: string): void;
-    addJSON(name: string, src: string): void;
+    addImage(name: string, src: string): this;
+    addSound(name: string, src: string): this;
+    addJSON(name: string, src: string): this;
     load(): Promise<AssetMap | void>;
     reset(): void;
     clearQueue(): void;

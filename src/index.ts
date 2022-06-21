@@ -6,7 +6,7 @@ const getCanvasContainer = (el: string | HTMLElement): HTMLElement => {
         : el;
 };
 
-const getKey = (key: string) => {
+const getKey = (key: string): string => {
     return key === ' ' ? 'Spacebar' : key;
 };
 

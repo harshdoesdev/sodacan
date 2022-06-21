@@ -100,14 +100,20 @@ export default class AssetLoader {
 
     addImage(name: string, src: string) {
         this.enqueueAsset(name, src, ASSET_TYPE.IMAGE);
+
+        return this;
     }
 
     addSound(name: string, src: string) {
         this.enqueueAsset(name, src, ASSET_TYPE.SOUND);
+
+        return this;
     }
 
     addJSON(name: string, src: string) {
         this.enqueueAsset(name, src, ASSET_TYPE.JSON);
+
+        return this;
     }
 
     async load(): Promise<AssetMap | void> {

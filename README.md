@@ -7,8 +7,8 @@ npm i sodacan
 ```
 
 ## Example
-```javascript
 game.js
+```javascript
 export default class Game {
 
     // called once for initialization

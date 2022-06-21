@@ -20,7 +20,7 @@ export default class AssetLoader {
     addImage(name: string, src: string): void;
     addSound(name: string, src: string): void;
     addJSON(name: string, src: string): void;
-    load(): Promise<AssetMap>;
+    load(): Promise<AssetMap | void>;
     reset(): void;
     clearQueue(): void;
 }

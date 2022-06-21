@@ -95,23 +95,31 @@ export default class AssetLoader {
             if (this.loading) {
                 throw new Error('AssetLoader is Already Loading Assets.');
             }
-            this.loading = true;
-            const loadPromises = this.queue.map(getAssetLoadPromise);
-            const loadedAssets = yield Promise.all(loadPromises);
-            const assetMap = {
-                [ASSET_TYPE.IMAGE]: {},
-                [ASSET_TYPE.SOUND]: {},
-                [ASSET_TYPE.JSON]: {}
-            };
-            for (let i = 0; i < loadedAssets.length; i++) {
-                const asset = loadedAssets[i];
-                if (asset) {
-                    const { name, type, value } = asset;
-                    const assetsOfType = assetMap[type];
-                    assetsOfType[name] = value;
+            try {
+                this.loading = true;
+                const loadPromises = this.queue.map(getAssetLoadPromise);
+                const loadedAssets = yield Promise.all(loadPromises);
+                const assetMap = {
+                    [ASSET_TYPE.IMAGE]: {},
+                    [ASSET_TYPE.SOUND]: {},
+                    [ASSET_TYPE.JSON]: {}
+                };
+                for (let i = 0; i < loadedAssets.length; i++) {
+                    const asset = loadedAssets[i];
+                    if (asset) {
+                        const { name, type, value } = asset;
+                        const assetsOfType = assetMap[type];
+                        assetsOfType[name] = value;
+                    }
                 }
+                return assetMap;
             }
-            return assetMap;
+            catch (_a) {
+                console.error("Loading Failed.");
+            }
+            finally {
+                this.reset();
+            }
         });
     }
     reset() {

@@ -110,36 +110,42 @@ export default class AssetLoader {
         this.enqueueAsset(name, src, ASSET_TYPE.JSON);
     }
 
-    async load(): Promise<AssetMap> {
+    async load(): Promise<AssetMap | void> {
         if(this.loading) {
             throw new Error('AssetLoader is Already Loading Assets.');
         }
 
-        this.loading = true;
+        try {
+            this.loading = true;
 
-        const loadPromises = this.queue.map(getAssetLoadPromise);
-
-        const loadedAssets: (LoadedAsset | void)[] = await Promise.all(loadPromises);
-
-        const assetMap: AssetMap = {
-            [ASSET_TYPE.IMAGE]: {},
-            [ASSET_TYPE.SOUND]: {},
-            [ASSET_TYPE.JSON]: {}
-        };
-        
-        for(let i = 0; i < loadedAssets.length; i++) {
-            const asset: (LoadedAsset | void) = loadedAssets[i];
-
-            if(asset) {
-                const { name, type, value } = asset;
-
-                const assetsOfType = assetMap[type];
-
-                assetsOfType[name] = value;
+            const loadPromises = this.queue.map(getAssetLoadPromise);
+    
+            const loadedAssets: (LoadedAsset | void)[] = await Promise.all(loadPromises);
+    
+            const assetMap: AssetMap = {
+                [ASSET_TYPE.IMAGE]: {},
+                [ASSET_TYPE.SOUND]: {},
+                [ASSET_TYPE.JSON]: {}
+            };
+            
+            for(let i = 0; i < loadedAssets.length; i++) {
+                const asset: (LoadedAsset | void) = loadedAssets[i];
+    
+                if(asset) {
+                    const { name, type, value } = asset;
+    
+                    const assetsOfType = assetMap[type];
+    
+                    assetsOfType[name] = value;
+                }
             }
+    
+            return assetMap;
+        } catch {
+            console.error("Loading Failed.");
+        } finally {
+            this.reset();
         }
-
-        return assetMap;
     }
 
     reset() {

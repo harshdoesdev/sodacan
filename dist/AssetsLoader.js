@@ -117,9 +117,6 @@ export default class AssetLoader {
                 }
                 return assetMap;
             }
-            catch (_a) {
-                console.error("Loading Failed.");
-            }
             finally {
                 this.reset();
             }

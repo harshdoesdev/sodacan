@@ -1,6 +1,11 @@
 # Sodacan
 Hypercasual Game Framework
 
+## Installation
+```bash
+npm i sodacan
+```
+
 ## Example
 ```javascript
 game.js

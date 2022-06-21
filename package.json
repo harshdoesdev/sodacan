@@ -1,0 +1,28 @@
+{
+  "name": "sodacan",
+  "version": "0.0.1",
+  "description": "Hypercasual Game Framework Inspired By Flame Game Engine",
+  "main": "dist/index.js",
+  "scripts": {
+    "clean": "tsc --build --clean",
+    "build": "tsc --build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rare-earth/Sodacan.git"
+  },
+  "keywords": [
+    "game-framework",
+    "2d",
+    "game",
+    "framework",
+    "hypercasual"
+  ],
+  "author": "Harsh Singh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rare-earth/Sodacan/issues"
+  },
+  "homepage": "https://github.com/rare-earth/Sodacan#readme",
+  "devDependencies": {}
+}

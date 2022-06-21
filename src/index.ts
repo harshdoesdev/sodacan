@@ -10,22 +10,22 @@ const getKey = (key: string) => {
     return key === ' ' ? 'Spacebar' : key;
 };
 
+interface IGameKeyHandler {
+    (key: string): void
+}
+
 interface IGame {
     init(): void
     update(dt: number): void
     draw(ctx: CanvasRenderingContext2D): void
-    keyUp?(key: string): void
-    keyDown?(key: string): void
+    keyUp?: IGameKeyHandler
+    keyDown?: IGameKeyHandler
 }
 
 interface IGameConfig {
     el: string | HTMLElement,
     pixelize: boolean,
     background?: string
-}
-
-interface IGameKeyHandler {
-    (key: string): void
 }
 
 export function runGame(game: IGame, config: IGameConfig = { el: '#root', pixelize: true }) {

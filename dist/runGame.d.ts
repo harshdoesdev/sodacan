@@ -7,6 +7,7 @@ interface IGame {
     draw(ctx: CanvasRenderingContext2D): void;
     keyUp?: IGameKeyHandler;
     keyDown?: IGameKeyHandler;
+    onResize?(): void;
 }
 interface IGameConfig {
     el: string | HTMLElement;

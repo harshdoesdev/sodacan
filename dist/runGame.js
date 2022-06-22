@@ -1,3 +1,4 @@
+import { canvas, context } from "./canvas.js";
 import { debounce } from "./util.js";
 const getCanvasContainer = (el) => {
     return typeof el === 'string'
@@ -8,8 +9,6 @@ const getKey = (key) => {
     return key === ' ' ? 'Spacebar' : key;
 };
 export default function runGame(game, config = { el: '#root', pixelize: true }) {
-    const canvas = document.createElement('canvas');
-    const context = canvas.getContext('2d');
     let _lastStep, _frameRequest;
     if (config.background) {
         canvas.style.background = config.background;
@@ -18,6 +17,7 @@ export default function runGame(game, config = { el: '#root', pixelize: true }) 
     function resize() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
+        game.onResize && game.onResize();
     }
     function clearCanvas() {
         context.clearRect(0, 0, canvas.width, canvas.height);
@@ -34,15 +34,17 @@ export default function runGame(game, config = { el: '#root', pixelize: true }) 
         clearCanvas();
         game.draw && game.draw(context);
     }
-    function loop() {
-        step();
+    function requestFrame() {
         _lastStep = performance.now();
         _frameRequest = requestAnimationFrame(loop);
     }
+    function loop() {
+        step();
+        requestFrame();
+    }
     function initialize() {
         game.init();
-        _lastStep = performance.now();
-        _frameRequest = requestAnimationFrame(loop);
+        requestFrame();
     }
     function start() {
         resize();

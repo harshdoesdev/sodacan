@@ -1,3 +1,4 @@
+import { canvas, context } from "./canvas.js";
 import { debounce } from "./util.js";
 
 const getCanvasContainer = (el: string | HTMLElement): HTMLElement => {
@@ -19,7 +20,8 @@ interface IGame {
     update(dt: number): void
     draw(ctx: CanvasRenderingContext2D): void
     keyUp?: IGameKeyHandler
-    keyDown?: IGameKeyHandler
+    keyDown?: IGameKeyHandler,
+    onResize?(): void
 }
 
 interface IGameConfig {
@@ -32,9 +34,6 @@ export default function runGame(
     game: IGame, 
     config: IGameConfig = { el: '#root', pixelize: true }
 ) {
-    const canvas = document.createElement('canvas') as HTMLCanvasElement;
-    const context = canvas.getContext('2d') as CanvasRenderingContext2D;
-
     let _lastStep: number, _frameRequest: number;
 
     if(config.background) {
@@ -46,6 +45,8 @@ export default function runGame(
     function resize() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
+
+        game.onResize && game.onResize();
     }
 
     function clearCanvas() {
@@ -66,16 +67,19 @@ export default function runGame(
         game.draw && game.draw(context);
     }
 
-    function loop() {
-        step();
+    function requestFrame() {
         _lastStep = performance.now();
         _frameRequest = requestAnimationFrame(loop);
     }
 
+    function loop() {
+        step();
+        requestFrame();
+    }
+
     function initialize() {
         game.init();
-        _lastStep = performance.now();
-        _frameRequest = requestAnimationFrame(loop);
+        requestFrame();
     }
 
     function start() {

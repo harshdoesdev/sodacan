@@ -3,6 +3,14 @@
   "version": "0.0.8",
   "description": "Hypercasual Game Framework Inspired By Flame Game Engine",
   "main": "dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./util": "./dist/util.js",
+    "./sound": "./dist/sound.js",
+    "./sprite": "./dist/sprite.js",
+    "./loader": "./dist/loader.js",
+    "./math": "./dist/math.js"
+  },
   "scripts": {
     "clean": "tsc --build --clean",
     "build": "tsc --build"
